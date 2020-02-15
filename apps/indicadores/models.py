@@ -2,6 +2,11 @@ from django.db import models
 from django.utils import timezone
 # Create your models here.
 
+MERCADO = (
+    ('N', 'NACIONAL'),
+    ('I', 'INTERNACIONAL'),
+)
+
 class Commodities(models.Model):
     nombre = models.CharField(max_length=40, null=False, blank=False)
     abreviatura = models.CharField(max_length=4, db_index=True, null=False, blank=False)
@@ -26,10 +31,6 @@ class ValoresMercado(models.Model):
         ('USD/G', 'USD/G'),
         ('USD/T', 'USD/T'),
         ('USD/QQ', 'USD/QQ'),
-    )
-    MERCADO = (
-        ('N', 'NACIONAL'),
-        ('I', 'INTERNACIONAL'),
     )
     precio_venta = models.DecimalField(max_digits=19, decimal_places=2, null=False, blank=False)
     precio_compra = models.DecimalField(max_digits=19, decimal_places=2, null=False, blank=False)
@@ -70,3 +71,17 @@ class Deives(models.Model):
 
     class Meta:
         db_table = 'in_celulares'
+
+
+class Leyendas(models.Model):
+    nomenclatura = models.CharField(max_length=10, null=False, blank=False)
+    descripcion = models.CharField(max_length=100, null=False, blank=False)
+    mercado = models.CharField(max_length=1, choices=MERCADO, default='N')
+
+    def __str__(self):
+        return self.nomenclatura
+
+    class Meta:
+        db_table = 'in_leyendas'
+        verbose_name = 'Leyenda de mercado'
+        verbose_name_plural = 'Leyendas de mercado'
