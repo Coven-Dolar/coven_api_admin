@@ -24,8 +24,8 @@ SECRET_KEY = '&b^le+))2=$tnywdp#e$3lev%hv0j284o8%1ch*&1dy%jk=u7&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-DEV = True
-ALLOWED_HOSTS = []
+DEV = False
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework.authtoken',
     'rest_framework',
+    'django_filters',
     'corsheaders',
     'froala_editor',
     'apps.indicadores',
@@ -166,7 +167,7 @@ else:
             'NAME': 'postgres',
             'USER': 'postgres',
             'PASSWORD': '1qaz2wsxcoven',
-            'HOST': '35.226.139.182',
+            'HOST': '35.232.200.50',
             'PORT': '5432'
         }
     }
