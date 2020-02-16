@@ -18,3 +18,4 @@ class PostSerializers(ModelSerializer):
         model = Post
         exclude = ['ultima_lectura']
 
+

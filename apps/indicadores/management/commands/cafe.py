@@ -7,7 +7,7 @@ from apps.indicadores.models import ValoresMercado, Commodities
 import requests
 
 class Command(BaseCommand):
-    help = "Obtiene el valor del cacao"
+    help = "Obtiene el valor del cafe"
 
     # A commands must define handle()
     def handle(self, *args, **options):
