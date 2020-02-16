@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.core.exceptions import ObjectDoesNotExist
 # Create your models here.
 
 MERCADO = (
@@ -8,8 +9,8 @@ MERCADO = (
 )
 
 class Commodities(models.Model):
+    abreviatura = models.CharField(max_length=4, primary_key=True, db_index=True, null=False, blank=False)
     nombre = models.CharField(max_length=40, null=False, blank=False)
-    abreviatura = models.CharField(max_length=4, db_index=True, null=False, blank=False)
     mercado_internacional = models.BooleanField(default=True)
     mercado_nacional = models.BooleanField(default=True)
     activo = models.BooleanField(default=True) 
@@ -19,8 +20,8 @@ class Commodities(models.Model):
     
     class Meta:
         db_table = 'in_commodities'
-        verbose_name_plural = 'Commodities'
-        verbose_name = 'Commoditi'
+        verbose_name_plural = 'Mercados'
+        verbose_name = 'Mercado'
         
 class ValoresMercado(models.Model):
     PAR = (
@@ -35,22 +36,28 @@ class ValoresMercado(models.Model):
     precio = models.DecimalField(max_digits=19, decimal_places=2, null=False, blank=False)
     #precio_venta = models.DecimalField(max_digits=19, decimal_places=2, null=False, blank=False)
     #precio_compra = models.DecimalField(max_digits=19, decimal_places=2, null=False, blank=False)
-    mercado = models.CharField(max_length=1, choices=MERCADO, default='N')
+    tipo_mercado = models.CharField(max_length=1, choices=MERCADO, default='N')
     par = models.CharField(max_length=20, choices=PAR, null=False, blank=False,)
     fecha = models.DateTimeField(default=timezone.now, )
     movilidad = models.DecimalField(max_digits=19, decimal_places=2, default=0)
     #movilidad_venta = models.DecimalField(max_digits=19, decimal_places=2, default=0)
     #movilidad_compra = models.DecimalField(max_digits=19, decimal_places=2, default=0)
-    commoditi = models.ForeignKey(Commodities, on_delete=models.CASCADE)
+    mercado = models.ForeignKey(Commodities, on_delete=models.CASCADE)
 
 
     def save(self, *args, **kwargs):
-        datos = ValoresMercado.objects.filter(commoditi_id=self.commoditi).latest('fecha')
-        if self.precio < datos.precio:
-            movilidad = (self.precio * 100) / datos.precio
-            self.movilidad = movilidad - 100
-        else:
-            self.movilidad_venta = self.precio_venta / datos.precio_venta
+        if not self.id:
+            try:
+                datos = ValoresMercado.objects.filter(mercado__abreviatura=self.mercado).latest('fecha')
+                if self.precio < datos.precio:
+                    movilidad = (self.precio * 100) / datos.precio
+                    self.movilidad = movilidad - 100
+                else:
+                    self.movilidad = self.precio / datos.precio
+            except ObjectDoesNotExist:
+                pass
+        
+        
             
         '''if self.precio_venta <  datos.precio_venta:
             movilidad_venta = (self.precio_venta * 100) / datos.precio_venta
@@ -75,7 +82,7 @@ class ValoresMercado(models.Model):
 
 class Deives(models.Model):
     identificador = models.CharField(max_length=20, null=False, blank=False)
-    token = models.CharField(max_length=200, null = False, blank=False)
+    token = models.CharField(max_length=200, null=False, blank=False)
 
     class Meta:
         db_table = 'in_celulares'
