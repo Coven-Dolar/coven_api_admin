@@ -1,3 +1,5 @@
+import decimal
+
 from django.db import models
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
@@ -48,12 +50,12 @@ class ValoresMercado(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             try:
-                datos = ValoresMercado.objects.filter(mercado__abreviatura=self.mercado).latest('fecha')
+                datos = ValoresMercado.objects.filter(tipo_mercado=self.tipo_mercado).latest('fecha')
                 if self.precio < datos.precio:
-                    movilidad = (self.precio * 100) / datos.precio
+                    movilidad = decimal.Decimal((self.precio * 100)) / decimal.Decimal(datos.precio)
                     self.movilidad = movilidad - 100
                 else:
-                    self.movilidad = self.precio / datos.precio
+                    self.movilidad = decimal.Decimal(self.precio) / decimal.Decimal(datos.precio)
             except ObjectDoesNotExist:
                 pass
         
