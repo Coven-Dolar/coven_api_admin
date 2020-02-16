@@ -17,32 +17,11 @@ class Command(BaseCommand):
         span = soup.find(class_="Last site-float")
         print(span.get_text().strip())
 
+        coffe = round(float(span.get_text().strip().replace(',', '')) * 0.00453592, 2)
+
         ValoresMercado(
             tipo_mercado='I',
-            precio=decimal.Decimal(span.get_text().strip()),
+            precio=coffe,
             par='USD/QQ',
             mercado=Commodities.objects.get(abreviatura='C')
         ).save()
-
-        '''import pycurl
-        import certifi
-        from io import BytesIO
-        import json
-
-        buffer = BytesIO()
-        c = pycurl.Curl()
-        c.setopt(c.URL, 'https://www.barchart.com/symbols/KCY00/modules?symbolType=2&symbolCode=FUT&hasOptions=1')
-        c.setopt(c.WRITEDATA, buffer)
-        c.setopt(c.CAINFO, certifi.where())
-        c.perform()
-        c.close()
-
-        body = buffer.getvalue()
-        data = json.loads(body)        
-        valor = data['overview']['data'][0]['raw']['lastPrice']
-        ValoresMercado(
-            tipo_mercado='I',
-            precio=valor,
-            par='USD/QQ',
-            mercado=Commodities.objects.get(abreviatura='C')
-        ).save()'''
