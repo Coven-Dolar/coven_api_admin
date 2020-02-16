@@ -14,8 +14,7 @@ class Command(BaseCommand):
         resp = r.json()
         USD = resp['USD']['promedio']
         ORO = resp['GOLD']['rate']
-        ORO = round(ORO / 28.3495,2)
-
+        ORO = round(ORO / 28.3495, 2)
 
         ValoresMercado(
             tipo_mercado='I',
@@ -24,10 +23,10 @@ class Command(BaseCommand):
             mercado=Commodities.objects.get(abreviatura='ORO')
         ).save()
 
-        '''ValoresMercado(
+        ValoresMercado(
             tipo_mercado='N',
             precio=USD,
             par='BS/USD',
             mercado=Commodities.objects.get(abreviatura='USD')
-        ).save()'''
+        ).save()
 
