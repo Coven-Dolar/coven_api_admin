@@ -32,19 +32,27 @@ class ValoresMercado(models.Model):
         ('USD/T', 'USD/T'),
         ('USD/QQ', 'USD/QQ'),
     )
-    precio_venta = models.DecimalField(max_digits=19, decimal_places=2, null=False, blank=False)
-    precio_compra = models.DecimalField(max_digits=19, decimal_places=2, null=False, blank=False)
+    precio = models.DecimalField(max_digits=19, decimal_places=2, null=False, blank=False)
+    #precio_venta = models.DecimalField(max_digits=19, decimal_places=2, null=False, blank=False)
+    #precio_compra = models.DecimalField(max_digits=19, decimal_places=2, null=False, blank=False)
     mercado = models.CharField(max_length=1, choices=MERCADO, default='N')
     par = models.CharField(max_length=20, choices=PAR, null=False, blank=False,)
     fecha = models.DateTimeField(default=timezone.now, )
-    movilidad_venta = models.DecimalField(max_digits=19, decimal_places=2, default=0)
-    movilidad_compra = models.DecimalField(max_digits=19, decimal_places=2, default=0)
+    movilidad = models.DecimalField(max_digits=19, decimal_places=2, default=0)
+    #movilidad_venta = models.DecimalField(max_digits=19, decimal_places=2, default=0)
+    #movilidad_compra = models.DecimalField(max_digits=19, decimal_places=2, default=0)
     commoditi = models.ForeignKey(Commodities, on_delete=models.CASCADE)
 
 
     def save(self, *args, **kwargs):
         datos = ValoresMercado.objects.filter(commoditi_id=self.commoditi).latest('fecha')
-        if self.precio_venta <  datos.precio_venta:
+        if self.precio < datos.precio:
+            movilidad = (self.precio * 100) / datos.precio
+            self.movilidad = movilidad - 100
+        else:
+            self.movilidad_venta = self.precio_venta / datos.precio_venta
+            
+        '''if self.precio_venta <  datos.precio_venta:
             movilidad_venta = (self.precio_venta * 100) / datos.precio_venta
             self.movilidad_venta  = movilidad_venta - 100
         else:
@@ -54,7 +62,7 @@ class ValoresMercado(models.Model):
             movilidad_compra = (self.precio_compra * 100) / datos.precio_compra
             self.movilidad_compra  = movilidad_compra - 100
         else:
-            self.movilidad_compra  = self.precio_compra / datos.precio_compra
+            self.movilidad_compra  = self.precio_compra / datos.precio_compra'''
 
         super(ValoresMercado, self).save(*args, **kwargs)
     

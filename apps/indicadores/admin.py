@@ -15,7 +15,7 @@ class AdminCommodities(admin.ModelAdmin):
 
 @admin.register(ValoresMercado)
 class AdminValoresMercado(admin.ModelAdmin):
-    list_display = ('commoditi', 'precio_venta', 'precio_compra', 'par', 'mercado', 'movilidad_venta', 'movilidad_compra', 'fecha')
+    list_display = ('commoditi', 'precio', 'par', 'mercado', 'movilidad', 'fecha')
     list_filter = ('commoditi', 'mercado', 'par')
-    fields = ('commoditi', 'precio_venta','precio_compra', 'mercado', 'par', 'fecha')
+    fields = ('commoditi', 'precio', 'mercado', 'par', 'fecha')
     readonly_fields = ('fecha',)
