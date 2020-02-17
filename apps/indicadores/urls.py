@@ -1,5 +1,7 @@
 from django.urls import path
 
+from apps.indicadores.views import Internacional
+
 urlpatterns = [
-    # path('', listado.as_view())
+    path('mercados/internacionales/', Internacional.as_view())
 ]
