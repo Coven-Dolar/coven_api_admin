@@ -24,7 +24,7 @@ SECRET_KEY = '&b^le+))2=$tnywdp#e$3lev%hv0j284o8%1ch*&1dy%jk=u7&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-DEV = False
+DEV = True
 ALLOWED_HOSTS = ['*']
 
 
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -149,6 +150,7 @@ REST_FRAMEWORK = {
 
 if DEV:
     print('Development Environment')
+    SITE_URL = 'http://127.0.0.1:8000/'
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'),
     ]
@@ -167,6 +169,7 @@ if DEV:
 
 
 else:
+    SITE_URL = 'https://coven.jaspesoft.com/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
     DATABASES = {
         'default': {
