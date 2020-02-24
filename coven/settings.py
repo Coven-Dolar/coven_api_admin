@@ -24,14 +24,16 @@ SECRET_KEY = '&b^le+))2=$tnywdp#e$3lev%hv0j284o8%1ch*&1dy%jk=u7&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-DEV = False
+DEV = True
 ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    #'django.contrib.admin',
+    'material.admin',
+    'material.admin.default',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -41,7 +43,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'corsheaders',
-    'froala_editor',
+    'ckeditor',
+    'ckeditor_uploader',
     'apps.indicadores',
     'apps.blog',
 ]
@@ -152,8 +155,12 @@ if DEV:
 
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'coven',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': '127.0.0.1',
+            'PORT': '5432'
         }
     }
 
@@ -167,10 +174,56 @@ else:
             'NAME': 'postgres',
             'USER': 'postgres',
             'PASSWORD': '1qaz2wsxcoven',
-            'HOST': '35.232.200.50',
+                    'HOST': '35.232.200.50',
             'PORT': '5432'
         }
     }
 
 
+MATERIAL_ADMIN_SITE = {
+    'HEADER':  'Conven  Admin',  # Admin site header
+    'TITLE':  'ConVen',  # Admin site title
+    #'FAVICON':  'path/to/favicon',  # Admin site favicon (path to static should be specified)
+    #'MAIN_BG_COLOR':  'color',  # Admin site main color, css color should be specified
+    #'MAIN_HOVER_COLOR':  'color',  # Admin site main hover color, css color should be specified
+    #'PROFILE_PICTURE':  'path/to/image',  # Admin site profile picture (path to static should be specified)
+    #'PROFILE_BG':  'path/to/image',  # Admin site profile background (path to static should be specified)
+    'LOGIN_LOGO':  'imagen/logo.svg',  # Admin site logo on login page (path to static should be specified)
+    #'LOGOUT_BG':  'path/to/image',  # Admin site background on login/logout pages (path to static should be specified)
+    #'SHOW_THEMES':  True,  #  Show default admin themes button
+    #'TRAY_REVERSE': True,  # Hide object-tools and additional-submit-line by default
+    #'NAVBAR_REVERSE': True,  # Hide side navbar by default
+    #'SHOW_COUNTS': True, # Show instances counts for each model
+    #'APP_ICONS': {  # Set icons for applications(lowercase), including 3rd party apps, {'application_name': 'material_icon_name', ...}
+    #    'sites': 'send',
+    #},
+    #'MODEL_ICONS': {  # Set icons for models(lowercase), including 3rd party models, {'model_name': 'material_icon_name', ...}
+    #    'site': 'contact_mail',
+    #}
+}
 
+# CKEDITOR
+
+CKEDITOR_UPLOAD_PATH = 'post'
+CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_BROWSE_SHOW_DIRS = True
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'height': 300,
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
+            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            {'name': 'insert',
+             'items': ['Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
+            ['RemoveFormat', 'Source']
+        ],
+        'extraPlugins': ','.join([
+            'uploadimage',
+            'uploadwidget'
+        ]),
+    }
+}

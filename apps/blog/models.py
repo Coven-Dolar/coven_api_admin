@@ -1,10 +1,9 @@
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User
 from django.db import models
 from django.template import defaultfilters
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
-from django.core import validators
-from froala_editor.fields import FroalaField
 
 # Create your models here.
 
@@ -44,7 +43,7 @@ class Post(models.Model):
     titulo = models.CharField(max_length=120, verbose_name='Titulo Articulo')
     url = models.CharField(max_length=240, verbose_name='Url')
     fecha_creacion = models.DateField(default=timezone.now, editable=False, verbose_name='Fecha de creacion')
-    descripcion = FroalaField()
+    descripcion = RichTextUploadingField(null=False, blank=False)
     resumen = models.TextField(max_length=800, null=True, blank=True, verbose_name='Resumen')
     ultima_lectura = models.DateTimeField(editable=False, verbose_name='Ultima lectura', null=True, blank=True)
     foto_principal = models.FileField(upload_to='documents/')

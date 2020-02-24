@@ -22,6 +22,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 urlpatterns = [
     path('', admin.site.urls),
     path('api/auth/', obtain_auth_token),
+    path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     path('api/v1/blog/', include('apps.blog.urls')),
     path('api/v1/indicadores/', include('apps.indicadores.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -6,8 +6,9 @@ from django.contrib.auth.models import User
 # Register your models here.
 from .utils.File import File
 
-
+@admin.register(Categorias)
 class AdminCategorias(admin.ModelAdmin):
+    icon_name = 'playlist_add_check'
     list_filter = ('status',)
     fieldsets = [
          (None, { 'fields': ['categoria', 'status'] }),
@@ -15,9 +16,9 @@ class AdminCategorias(admin.ModelAdmin):
     list_display = ('categoria', 'url','total_articulos')
 
 
-admin.site.register(Categorias, AdminCategorias)
-
+@admin.register(Post)
 class AdminPost(admin.ModelAdmin):
+    icon_name = 'library_add'
     list_filter = ('usuario','categoria', 'activo')
     fieldsets = [
         (None, {'fields': [('titulo', 'foto_principal')]}),
@@ -46,5 +47,3 @@ class AdminPost(admin.ModelAdmin):
             datos_categoria = Categorias.objects.get(id=request.POST['categoria'])
             cantidad = datos_categoria.total_articulos + 1
             Categorias.objects.filter(id=request.POST['categoria']).update(total_articulos=cantidad)
-
-admin.site.register(Post, AdminPost)
