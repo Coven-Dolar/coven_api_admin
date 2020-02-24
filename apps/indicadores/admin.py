@@ -7,14 +7,17 @@ from apps.indicadores.models import *
 
 @admin.register(Leyendas)
 class AdminLeyendas(admin.ModelAdmin):
+    icon_name = 'chrome_reader_mode'
     list_display = ('nomenclatura','descripcion')
 
 @admin.register(Commodities)
 class AdminCommodities(admin.ModelAdmin):
+    icon_name = 'art_track'
     list_display = ('nombre', 'activo', 'mercado_internacional', 'mercado_nacional')
 
 @admin.register(ValoresMercado)
 class AdminValoresMercado(admin.ModelAdmin):
+    icon_name = 'trending_up'
     list_display = ('mercado', 'precio', 'par', 'movilidad', 'fecha', 'tipo_mercado')
     list_filter = ('mercado', 'tipo_mercado', 'par')
     fields = ('mercado', 'precio', 'tipo_mercado', 'par', 'fecha')
