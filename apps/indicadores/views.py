@@ -9,8 +9,9 @@ class Internacional(APIView):
     def get(self, request):
         cursor = connection.cursor()
         cursor.execute("SELECT 	nombre, par, precio, movilidad "
-                                          "FROM in_commodities INNER JOIN in_valores_mercado ON mercado_id = in_commodities.abreviatura "
-                                          "WHERE tipo_mercado='I' and fecha in (SELECT max(fecha) from in_valores_mercado where mercado_id = in_commodities.abreviatura)")
+                      "FROM in_commodities INNER JOIN in_valores_mercado ON mercado_id = in_commodities.abreviatura "
+                      "WHERE tipo_mercado='I' and fecha in (SELECT max(fecha) "
+                       "from in_valores_mercado where mercado_id = in_commodities.abreviatura and tipo_mercado = 'I')")
         columns = [col[0] for col in cursor.description]
 
         data = [dict(zip(columns, row))
@@ -24,7 +25,8 @@ class Nacional(APIView):
         cursor = connection.cursor()
         cursor.execute("SELECT 	nombre, par, precio, movilidad "
                                           "FROM in_commodities INNER JOIN in_valores_mercado ON mercado_id = in_commodities.abreviatura "
-                                          "WHERE tipo_mercado='N' and fecha in (SELECT max(fecha) from in_valores_mercado where mercado_id = in_commodities.abreviatura)")
+                                          "WHERE tipo_mercado='N' and fecha in (SELECT max(fecha) "
+                       "from in_valores_mercado where mercado_id = in_commodities.abreviatura and tipo_mercado = 'N')")
         columns = [col[0] for col in cursor.description]
 
         data = [dict(zip(columns, row))
