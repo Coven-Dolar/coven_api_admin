@@ -17,7 +17,7 @@ class Command(BaseCommand):
         ORO = round(ORO / 28.3495, 2)
 
         ValoresMercado(
-            tipo_mercado='I',
+            tipo_mercado='N',
             precio=ORO,
             par='USD/G',
             mercado=Commodities.objects.get(abreviatura='ORO')

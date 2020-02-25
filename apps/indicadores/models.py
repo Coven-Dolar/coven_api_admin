@@ -28,6 +28,7 @@ class Commodities(models.Model):
 class ValoresMercado(models.Model):
     PAR = (
         ('BS/USD', 'BS/USD'),
+        ('BS/EUR', 'BS/EUR'),
         ('BS/PTR', 'BS/PTR'),
         ('USD/PTR', 'USD/PTR'),
         ('EUR/PTR', 'EUR/PTR'),
