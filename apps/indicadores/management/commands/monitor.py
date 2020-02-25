@@ -27,28 +27,29 @@ class Command(BaseCommand):
         paypal = float(paypal.replace('Paypal: ', '').replace(' Bs.S', '').replace('.', '').replace(',', '.'))
 
 
-        ValoresMercado(
+
+        ValoresMercado.objects.create(
             tipo_mercado='N',
             precio=usd,
             par='BS/USD',
             mercado=Commodities.objects.get(abreviatura='USD')
         ).save()
 
-        ValoresMercado(
+        ValoresMercado.objects.create(
             tipo_mercado='N',
             precio=paypal,
             par='BS/USD',
             mercado=Commodities.objects.get(abreviatura='Payp')
         ).save()
 
-        ValoresMercado(
+        ValoresMercado.objects.create(
             tipo_mercado='N',
             precio=eur,
             par='BS/EUR',
             mercado=Commodities.objects.get(abreviatura='EUR')
         ).save()
 
-        ValoresMercado(
+        ValoresMercado.objects.create(
             tipo_mercado='N',
             precio=bcv,
             par='BS/USD',
