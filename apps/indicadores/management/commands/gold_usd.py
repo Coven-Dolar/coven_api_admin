@@ -12,21 +12,13 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         r = requests.get('https://s3.amazonaws.com/dolartoday/data.json')
         resp = r.json()
-        USD = resp['USD']['promedio']
         ORO = resp['GOLD']['rate']
         ORO = round(ORO / 28.3495, 2)
 
-        ValoresMercado(
+        ValoresMercado.objects.create(
             tipo_mercado='N',
             precio=ORO,
             par='USD/G',
             mercado=Commodities.objects.get(abreviatura='ORO')
-        ).save()
-
-        ValoresMercado(
-            tipo_mercado='N',
-            precio=USD,
-            par='BS/USD',
-            mercado=Commodities.objects.get(abreviatura='USD')
         ).save()
 

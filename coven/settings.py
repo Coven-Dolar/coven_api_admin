@@ -185,8 +185,8 @@ else:
 
 
 MATERIAL_ADMIN_SITE = {
-    'HEADER':  'Conven  Admin',  # Admin site header
-    'TITLE':  'ConVen',  # Admin site title
+    'HEADER':  'Coven  Admin',  # Admin site header
+    'TITLE':  'CoVen',  # Admin site title
     #'FAVICON':  'path/to/favicon',  # Admin site favicon (path to static should be specified)
     #'MAIN_BG_COLOR':  'color',  # Admin site main color, css color should be specified
     #'MAIN_HOVER_COLOR':  'color',  # Admin site main hover color, css color should be specified
