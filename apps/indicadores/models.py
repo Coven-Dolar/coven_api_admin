@@ -83,14 +83,6 @@ class ValoresMercado(models.Model):
         ordering = ['-fecha']
 
 
-class Deives(models.Model):
-    identificador = models.CharField(max_length=20, null=False, blank=False)
-    token = models.CharField(max_length=200, null=False, blank=False)
-
-    class Meta:
-        db_table = 'in_celulares'
-
-
 class Leyendas(models.Model):
     nomenclatura = models.CharField(max_length=10, null=False, blank=False)
     descripcion = models.CharField(max_length=100, null=False, blank=False)
