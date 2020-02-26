@@ -10,3 +10,4 @@ bs4
 pycurl
 django-material-admin
 django-ckeditor
+fcm-django
