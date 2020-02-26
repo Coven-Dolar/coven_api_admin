@@ -25,3 +25,8 @@ class Command(BaseCommand):
             mercado=Commodities.objects.get(abreviatura='ORO')
         ).save()
 
+        from fcm_django.models import FCMDevice
+        device = FCMDevice.objects.all().first()
+        device.send_message(title="Actualización del ORO ",
+                            body="Ha sído actualizado el valor del oro en el mercado Internacional.")
+

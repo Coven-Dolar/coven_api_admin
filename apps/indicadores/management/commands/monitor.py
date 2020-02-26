@@ -56,3 +56,8 @@ class Command(BaseCommand):
             mercado=Commodities.objects.get(abreviatura='BCV')
         ).save()
 
+        from fcm_django.models import FCMDevice
+        device = FCMDevice.objects.all().first()
+        device.send_message(title="Actualización de Precio",
+                            body="Visualice los nuevos precios del dolar, paypal y Euro")
+
