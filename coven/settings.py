@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'apps.indicadores',
     'apps.blog',
+    'fcm_django',
 ]
 
 MIDDLEWARE = [
@@ -230,4 +231,11 @@ CKEDITOR_CONFIGS = {
             'uploadwidget'
         ]),
     }
+}
+
+FCM_DJANGO_SETTINGS = {
+        "APP_VERBOSE_NAME": "Push Notifications",
+        "FCM_SERVER_KEY": "AAAAHfFw5QE:APA91bHRPFoBVpuCgETCwYxg7av0BV73_M6NXbri8UTIjzdXPSk0H2xVlQcxJkEipAjLbgwR95VuGsnOfJGX7VPiImRlyHLKKcG-G01pRotbiH7nW-bm9xToLOEFKBQcWG2YHKhAByEE",
+        "ONE_DEVICE_PER_USER": False,
+        "DELETE_INACTIVE_DEVICES": True,
 }
