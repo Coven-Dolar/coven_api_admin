@@ -23,6 +23,7 @@ from fcm_django.api.rest_framework import FCMDeviceAuthorizedViewSet
 
 urlpatterns = [
     path('', admin.site.urls),
+    path('web/', include('apps.web.urls')),
     path('api/auth/', obtain_auth_token),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('api/v1/blog/', include('apps.blog.urls')),

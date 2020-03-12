@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'apps.indicadores',
     'apps.blog',
+    'apps.web',
     'fcm_django',
 ]
 
@@ -179,7 +180,7 @@ else:
             'NAME': 'postgres',
             'USER': 'postgres',
             'PASSWORD': '1qaz2wsxcoven',
-                    'HOST': '35.232.200.50',
+            'HOST': '35.232.200.50',
             'PORT': '5432'
         }
     }
