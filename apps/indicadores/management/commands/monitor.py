@@ -59,7 +59,7 @@ class Command(BaseCommand):
         from fcm_django.models import FCMDevice
         device = FCMDevice.objects.all().first()
         device.send_message(title="Actualización de Precio.",
-                            body="Dolar: "+usd+" \n"
-                                               "Paypal "+paypal+" \n"
-                                                "Euro " + eur)
+                            body="Dolar: "+str(usd)+" \n"
+                                               "Paypal "+str(paypal)+" \n"
+                                                "Euro " + str(eur))
 
