@@ -180,7 +180,7 @@ else:
             'NAME': 'db_coven',
             'USER': 'user_admindb',
             'PASSWORD': 'P@ssw0rd2020c0r0n4',
-            'HOST': '35.232.200.50',
+            'HOST': '127.0.0.1',
             'PORT': '5432'
         }
     }
