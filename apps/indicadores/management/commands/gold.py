@@ -3,7 +3,10 @@ import os
 
 from bs4 import BeautifulSoup
 from django.core.management.base import BaseCommand
+from django.db.models import Max, Count, Subquery, OuterRef
+from django.utils import timezone
 from apps.indicadores.models import ValoresMercado, Commodities
+from datetime import date
 import requests
 
 class Command(BaseCommand):
@@ -25,8 +28,15 @@ class Command(BaseCommand):
             mercado=Commodities.objects.get(abreviatura='ORO')
         ).save()
 
+        valores = ValoresMercado.objects.filter(fecha__gte=date.today(), mercado__mercado_internacional=True)
+        mess = ''
+        for valor in valores:
+            mess += str(valor.mercado) + ': ' + str(valor.precio) + ' ' + str(valor.par) + ' \n'
+
         from fcm_django.models import FCMDevice
         device = FCMDevice.objects.all().first()
-        device.send_message(title="Actualización del ORO ",
-                            body="Ha sído actualizado el valor del oro en el mercado Internacional.")
+        device.send_message(title="Actualización de Commodities Internacionales. ",
+                            body=mess)
+
+
 
