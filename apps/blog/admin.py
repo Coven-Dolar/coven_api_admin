@@ -34,6 +34,7 @@ class AdminPost(admin.ModelAdmin):
             filex.upload()
             obj.foto_principal = str(filex.getFile())
             obj.foto_miniatura = 'images/md_' +filex.getNameEncryp()
+            print(obj.foto_miniatura)
         except MultiValueDictKeyError:
             pass
         obj.titulo = request.POST['titulo']
