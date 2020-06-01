@@ -35,7 +35,7 @@ class ValoresMercado(models.Model):
         ('USD/G', 'USD/G'),
         ('USD/T', 'USD/T'),
         ('USD/QQ', 'USD/QQ'),
-        ('USD/LT', 'USD/LT'),
+        ('USD/L', 'USD/L'),
     )
     precio = models.DecimalField(max_digits=19, decimal_places=2, null=False, blank=False)
     #precio_venta = models.DecimalField(max_digits=19, decimal_places=2, null=False, blank=False)
