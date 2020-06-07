@@ -9,7 +9,7 @@ from apps.indicadores.models import *
 class AdminLeyendas(admin.ModelAdmin):
     icon_name = 'chrome_reader_mode'
     list_display = ('nomenclatura','descripcion')
-    list_filter = ('mercado')
+    list_filter = ('mercado',)
 
 @admin.register(Commodities)
 class AdminCommodities(admin.ModelAdmin):
