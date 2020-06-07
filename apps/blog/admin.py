@@ -45,6 +45,6 @@ class AdminPost(admin.ModelAdmin):
 
         #sumo 1 post mas a la cantidad de publicados en la categoria
         if not change:
-            datos_categoria = Categorias.objects.get(id=request.POST['categoria'])
-            cantidad = datos_categoria.total_articulos + 1
+            datos_categoria = Categorias.objects.filter(id=request.POST['categoria'])
+            cantidad = int(datos_categoria.count()) + 1
             Categorias.objects.filter(id=request.POST['categoria']).update(total_articulos=cantidad)
