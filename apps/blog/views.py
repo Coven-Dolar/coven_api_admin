@@ -19,6 +19,10 @@ class Articulos(ListAPIView):
     serializer_class = PostSerializers
     queryset = Post.objects.filter(activo=True)
 
+class ArticulosRecientes(ListAPIView):
+    serializer_class = PostSerializers
+    queryset = Post.objects.filter(activo=True)[:6]
+
 class ArticulosCategoria(ListAPIView):
     serializer_class = PostSerializers
 
