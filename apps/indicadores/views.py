@@ -1,8 +1,15 @@
+from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import connection
+from django.http import HttpResponse
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 import json
+
+from apps.indicadores.models import Leyendas
+from apps.indicadores.serializers import LeyendaMercadoSerializer
+
 
 class Internacional(APIView):
 
@@ -33,3 +40,11 @@ class Nacional(APIView):
                 for row in cursor.fetchall()
                 ]
         return Response(json.loads(json.dumps(list(data), cls=DjangoJSONEncoder)))
+
+
+class LeyendaMercado(APIView):
+
+    def get(self, request, leyenda):
+        serializer = LeyendaMercadoSerializer(Leyendas.objects.filter(mercado=leyenda), many=True)
+        return Response(serializer.data)
+
