@@ -17,7 +17,7 @@ class Internacional(APIView):
         cursor = connection.cursor()
         cursor.execute("SELECT 	nombre, par, precio, movilidad "
                       "FROM in_commodities INNER JOIN in_valores_mercado ON mercado_id = in_commodities.abreviatura "
-                      "WHERE tipo_mercado='I' and fecha in (SELECT max(fecha) "
+                      "WHERE tipo_mercado='I' and activo = true and fecha in (SELECT max(fecha) "
                        "from in_valores_mercado where mercado_id = in_commodities.abreviatura and tipo_mercado = 'I')")
         columns = [col[0] for col in cursor.description]
 
