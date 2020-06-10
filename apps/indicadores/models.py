@@ -30,6 +30,7 @@ class ValoresMercado(models.Model):
         ('BS/USD', 'BS/USD'),
         ('BS/EUR', 'BS/EUR'),
         ('BS/PTR', 'BS/PTR'),
+        ('BS/BTC', 'BS/BTC'),
         ('USD/PTR', 'USD/PTR'),
         ('EUR/PTR', 'EUR/PTR'),
         ('USD/G', 'USD/G'),
@@ -38,6 +39,8 @@ class ValoresMercado(models.Model):
         ('USD/L', 'USD/L'),
         ('USD/L', 'USD/L'),
         ('USD/BARRIL', 'USD/BARRIL'),
+        ('USD/BTC', 'USD/BTC'),
+
     )
     precio = models.DecimalField(max_digits=19, decimal_places=2, null=False, blank=False)
     #precio_venta = models.DecimalField(max_digits=19, decimal_places=2, null=False, blank=False)
