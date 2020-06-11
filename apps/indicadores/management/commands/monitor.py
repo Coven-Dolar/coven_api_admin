@@ -56,11 +56,11 @@ class Command(BaseCommand):
             mercado=Commodities.objects.get(abreviatura='BCV')
         ).save()
 
-        from fcm_django.models import FCMDevice
+        '''from fcm_django.models import FCMDevice
         device = FCMDevice.objects.all().first()
         device.send_message(title="Actualización de Precio.",
                             icon="https://coven.jaspesoft.com/static/imagen/icon.png",
                             body="Dolar: "+str(usd)+" \n"
                                                "Paypal "+str(paypal)+" \n"
-                                                "Euro " + str(eur))
+                                                "Euro " + str(eur))'''
 

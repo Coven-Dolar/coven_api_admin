@@ -28,7 +28,7 @@ class Command(BaseCommand):
             mercado=Commodities.objects.get(abreviatura='ORO')
         ).save()
 
-        valores = ValoresMercado.objects.filter(fecha__gte=date.today(), mercado__mercado_internacional=True)
+        '''valores = ValoresMercado.objects.filter(fecha__gte=date.today(), mercado__mercado_internacional=True)
         mess = ''
         for valor in valores:
             mess += str(valor.mercado) + ': ' + str(valor.precio) + ' ' + str(valor.par) + ' \n'
@@ -36,7 +36,7 @@ class Command(BaseCommand):
         from fcm_django.models import FCMDevice
         device = FCMDevice.objects.all().first()
         device.send_message(title="Actualización de Commodities Internacionales. ",
-                            body=mess)
+                            body=mess)'''
 
 
 
