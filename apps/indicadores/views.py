@@ -1,3 +1,5 @@
+import datetime
+
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import connection
@@ -7,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 import json
 
-from apps.indicadores.models import Leyendas
+from apps.indicadores.models import Leyendas, ValoresMercado
 from apps.indicadores.serializers import LeyendaMercadoSerializer
 
 
@@ -48,3 +50,14 @@ class LeyendaMercado(APIView):
         serializer = LeyendaMercadoSerializer(Leyendas.objects.filter(mercado=leyenda), many=True)
         return Response(serializer.data)
 
+class DataNationalMarketValue(APIView):
+
+    def get(self, request, item):
+        data = []
+        now = datetime.datetime.now()
+
+        after = now - datetime.timedelta(days=int(request.GET['days']))
+        var = ValoresMercado.objects.filter(fecha__range=(after, now), tipo_mercado='N')
+        for item in var:
+            data.append({item.fecha.strftime("%m-%d %H:%M"): item.precio})
+        return Response(data)
