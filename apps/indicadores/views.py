@@ -51,7 +51,6 @@ class LeyendaMercado(APIView):
         return Response(serializer.data)
 
 class DataMarketGraph(APIView):
-    permission_classes = (AllowAny,)
 
     def get(self, request, typemarket, market):
         data = []
