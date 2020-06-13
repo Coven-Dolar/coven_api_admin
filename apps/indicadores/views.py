@@ -50,14 +50,16 @@ class LeyendaMercado(APIView):
         serializer = LeyendaMercadoSerializer(Leyendas.objects.filter(mercado=leyenda), many=True)
         return Response(serializer.data)
 
-class DataNationalMarketValue(APIView):
+class DataMarketGraph(APIView):
 
-    def get(self, request, item):
+    def get(self, request, typemarket, market):
         data = []
         now = datetime.datetime.now()
 
         after = now - datetime.timedelta(days=int(request.GET['days']))
-        var = ValoresMercado.objects.filter(fecha__range=(after, now), tipo_mercado='N')
+        var = ValoresMercado.objects.filter(fecha__range=(after, now),
+                                            tipo_mercado=typemarket, mercado__nombre=market)
         for item in var:
             data.append({item.fecha.strftime("%m-%d %H:%M"): item.precio})
+
         return Response(data)
