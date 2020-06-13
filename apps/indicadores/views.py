@@ -51,12 +51,15 @@ class LeyendaMercado(APIView):
         return Response(serializer.data)
 
 class DataMarketGraph(APIView):
+    permission_classes = (AllowAny,)
 
     def get(self, request, typemarket, market):
         data = []
+        data.append({market: 'HISTÓRICO ' + market})
         now = datetime.datetime.now()
 
         after = now - datetime.timedelta(days=int(request.GET['days']))
+
         var = ValoresMercado.objects.filter(fecha__range=(after, now),
                                             tipo_mercado=typemarket, mercado__nombre=market)
         for item in var:
