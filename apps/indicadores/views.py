@@ -55,7 +55,7 @@ class DataMarketGraph(APIView):
 
     def get(self, request, typemarket, market):
         data = []
-        data.append({market: 'HISTÓRICO ' + market})
+        data.append({'date': market, 'value': 'HISTÓRICO ' + market})
         now = datetime.datetime.now()
 
         after = now - datetime.timedelta(days=int(request.GET['days']))
@@ -63,6 +63,6 @@ class DataMarketGraph(APIView):
         var = ValoresMercado.objects.filter(fecha__range=(after, now),
                                             tipo_mercado=typemarket, mercado__nombre=market)
         for item in var:
-            data.append({item.fecha.strftime("%m-%d %H:%M"): item.precio})
+            data.append({'date': item.fecha.strftime("%m-%d %H:%M"),  'value':item.precio})
 
         return Response(data)
