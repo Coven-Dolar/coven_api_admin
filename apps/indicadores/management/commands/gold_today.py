@@ -14,7 +14,7 @@ class Command(BaseCommand):
        r = requests.get('https://s3.amazonaws.com/dolartoday/data.json')
        resp = r.json()
        ORO = resp['GOLD']['rate']
-       ORO = round(ORO / 28.3495, 2)
+       ORO = round(ORO / 28.3495,2)
        ValoresMercado.objects.create(
             tipo_mercado='N',
             precio=ORO,
