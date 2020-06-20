@@ -51,6 +51,7 @@ class LeyendaMercado(APIView):
         return Response(serializer.data)
 
 class DataMarketGraph(APIView):
+    #permission_classes = (AllowAny,)
 
     def get(self, request, typemarket, market):
         data = []
@@ -60,7 +61,8 @@ class DataMarketGraph(APIView):
         after = now - datetime.timedelta(days=int(request.GET['days']))
 
         var = ValoresMercado.objects.filter(fecha__range=(after, now),
-                                            tipo_mercado=typemarket, mercado__nombre=market)
+                                            tipo_mercado=typemarket, mercado__nombre=market).order_by('fecha')
+        print(var.query)
         for item in var:
             data.append({'date': item.fecha.strftime("%m-%d %H:%M"),  'value':item.precio})
 
