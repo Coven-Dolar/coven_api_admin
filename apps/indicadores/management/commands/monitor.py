@@ -21,9 +21,10 @@ class Command(BaseCommand):
         eur = valor[3]
         bcv = valor[4]
         paypal = valor[10]
-        eur = float(eur.replace('MonitorEuro:', '').replace(' Bs.S', '').replace('.', '').replace(',', '.'))
+
+        eur = float(eur.replace('Monitor Euro:', '').replace(' Bs.S', '').replace('.', '').replace(',', '.'))
         bcv = float(bcv.replace('BCV: ', '').replace(' Bs.S', '').replace('.', '').replace(',', '.'))
-        usd = float(usd.replace('MonitorDolar: ', '').replace(' Bs.S', '').replace('.', '').replace(',', '.'))
+        usd = float(usd.replace('Monitor Dolar: ', '').replace(' Bs.S', '').replace('.', '').replace(',', '.'))
         paypal = float(paypal.replace('Paypal: ', '').replace(' Bs.S', '').replace('.', '').replace(',', '.'))
 
 
