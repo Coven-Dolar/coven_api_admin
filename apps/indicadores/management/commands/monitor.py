@@ -28,34 +28,37 @@ class Command(BaseCommand):
         paypal = float(paypal.replace('Paypal: ', '').replace(' Bs.S', '').replace('.', '').replace(',', '.'))
 
 
+        if usd > 0:
+            ValoresMercado.objects.create(
+                tipo_mercado='N',
+                precio=usd,
+                par='BS/USD',
+                mercado=Commodities.objects.get(abreviatura='USD')
+            ).save()
 
-        ValoresMercado.objects.create(
-            tipo_mercado='N',
-            precio=usd,
-            par='BS/USD',
-            mercado=Commodities.objects.get(abreviatura='USD')
-        ).save()
+        if paypal > 0:
+            ValoresMercado.objects.create(
+                tipo_mercado='N',
+                precio=paypal,
+                par='BS/USD',
+                mercado=Commodities.objects.get(abreviatura='Payp')
+            ).save()
 
-        ValoresMercado.objects.create(
-            tipo_mercado='N',
-            precio=paypal,
-            par='BS/USD',
-            mercado=Commodities.objects.get(abreviatura='Payp')
-        ).save()
+        if eur > 0:
+            ValoresMercado.objects.create(
+                tipo_mercado='N',
+                precio=eur,
+                par='BS/EUR',
+                mercado=Commodities.objects.get(abreviatura='EUR')
+            ).save()
 
-        ValoresMercado.objects.create(
-            tipo_mercado='N',
-            precio=eur,
-            par='BS/EUR',
-            mercado=Commodities.objects.get(abreviatura='EUR')
-        ).save()
-
-        ValoresMercado.objects.create(
-            tipo_mercado='N',
-            precio=bcv,
-            par='BS/USD',
-            mercado=Commodities.objects.get(abreviatura='BCV')
-        ).save()
+        if bcv > 0:
+            ValoresMercado.objects.create(
+                tipo_mercado='N',
+                precio=bcv,
+                par='BS/USD',
+                mercado=Commodities.objects.get(abreviatura='BCV')
+            ).save()
 
         '''from fcm_django.models import FCMDevice
         device = FCMDevice.objects.all().first()
