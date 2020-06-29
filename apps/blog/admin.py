@@ -50,8 +50,7 @@ class AdminPost(admin.ModelAdmin):
             Categorias.objects.filter(id=request.POST['categoria']).update(total_articulos=cantidad)
 
             from fcm_django.models import FCMDevice
-            device = FCMDevice.objects.all().first()
-            device.send_message(title = request.POST['titulo'],
+            device = FCMDevice.objects.all()
+            device.send_message(title=request.POST['titulo'],
                                 body=request.POST['resumen'],
-                                icon="https://coven.jaspesoft.com/static/imagen/icon.png"
                                 )
