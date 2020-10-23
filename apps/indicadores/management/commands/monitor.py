@@ -16,17 +16,16 @@ class Command(BaseCommand):
         span = soup.find(class_='box-calcmd text-center')
         valor = span.get_text()
         valor = valor.split('\n')
-        #print(valor)
+        print(valor)
         usd = valor[2]
         eur = valor[3]
         bcv = valor[4]
-        paypal = valor[10]
+        paypal = valor[11]
 
         eur = float(eur.replace('Monitor Euro:', '').replace(' Bs.S', '').replace('.', '').replace(',', '.'))
         bcv = float(bcv.replace('BCV: ', '').replace(' Bs.S', '').replace('.', '').replace(',', '.'))
         usd = float(usd.replace('Monitor Dolar: ', '').replace(' Bs.S', '').replace('.', '').replace(',', '.'))
         paypal = float(paypal.replace('Paypal: ', '').replace(' Bs.S', '').replace('.', '').replace(',', '.'))
-
 
         if usd > 0:
             ValoresMercado.objects.create(
