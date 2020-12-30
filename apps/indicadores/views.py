@@ -9,8 +9,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 import json
 
-from apps.indicadores.models import Leyendas, ValoresMercado
-from apps.indicadores.serializers import LeyendaMercadoSerializer
+from apps.indicadores.models import Leyendas, ValoresMercado, ValoresMercadoActual
+from apps.indicadores.serializers import LeyendaMercadoSerializer, ValoresMercadoSerializer
 
 
 class Internacional(APIView):
@@ -18,8 +18,8 @@ class Internacional(APIView):
     def get(self, request):
         cursor = connection.cursor()
         cursor.execute("SELECT 	nombre, par, precio, movilidad "
-                      "FROM in_commodities INNER JOIN in_valores_mercado ON mercado_id = in_commodities.abreviatura "
-                      "WHERE tipo_mercado='I' and activo = true and fecha in (SELECT max(fecha) "
+                       "FROM in_commodities INNER JOIN in_valores_mercado ON mercado_id = in_commodities.abreviatura "
+                       "WHERE tipo_mercado='I' and activo = true and fecha in (SELECT max(fecha) "
                        "from in_valores_mercado where mercado_id = in_commodities.abreviatura and tipo_mercado = 'I')")
         columns = [col[0] for col in cursor.description]
 
@@ -28,13 +28,30 @@ class Internacional(APIView):
                 ]
         return Response(json.loads(json.dumps(list(data), cls=DjangoJSONEncoder)))
 
+
+class Internacionalv2(APIView):
+    def get(self, request):
+        data = ValoresMercadoActual.objects.filter(tipo_mercado='I')
+        serializer = ValoresMercadoSerializer(data, many=True)
+
+        return Response(serializer.data)
+
+
+class Nacionalv2(APIView):
+    def get(self, request):
+        data = ValoresMercadoActual.objects.filter(tipo_mercado='N')
+        serializer = ValoresMercadoSerializer(data, many=True)
+
+        return Response(serializer.data)
+
+
 class Nacional(APIView):
 
     def get(self, request):
         cursor = connection.cursor()
         cursor.execute("SELECT 	nombre, par, precio, movilidad "
-                                          "FROM in_commodities INNER JOIN in_valores_mercado ON mercado_id = in_commodities.abreviatura "
-                                          "WHERE tipo_mercado='N' and activo = true and fecha in (SELECT max(fecha) "
+                       "FROM in_commodities INNER JOIN in_valores_mercado ON mercado_id = in_commodities.abreviatura "
+                       "WHERE tipo_mercado='N' and activo = true and fecha in (SELECT max(fecha) "
                        "from in_valores_mercado where mercado_id = in_commodities.abreviatura and tipo_mercado = 'N')")
         columns = [col[0] for col in cursor.description]
 
@@ -50,8 +67,9 @@ class LeyendaMercado(APIView):
         serializer = LeyendaMercadoSerializer(Leyendas.objects.filter(mercado=leyenda), many=True)
         return Response(serializer.data)
 
+
 class DataMarketGraph(APIView):
-    #permission_classes = (AllowAny,)
+    # permission_classes = (AllowAny,)
 
     def get(self, request, typemarket, market):
         data = []
@@ -64,6 +82,6 @@ class DataMarketGraph(APIView):
                                             tipo_mercado=typemarket, mercado__nombre=market).order_by('fecha')
         print(var.query)
         for item in var:
-            data.append({'date': item.fecha.strftime("%m-%d %H:%M"),  'value':item.precio})
+            data.append({'date': item.fecha.strftime("%m-%d %H:%M"), 'value': item.precio})
 
         return Response(data)
