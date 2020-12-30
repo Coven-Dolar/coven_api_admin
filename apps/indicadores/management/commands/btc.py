@@ -13,7 +13,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         r = requests.get('https://coinmarketcap.com/currencies/bitcoin/')
         soup = BeautifulSoup(r.content, 'html.parser')
-        span = soup.find(class_="cmc-details-panel-price__price")
+        span = soup.find(class_="priceValue___11gHJ")
         btc = span.get_text().strip().replace(',', '').replace('$', '')
 
         ValoresMercado(
