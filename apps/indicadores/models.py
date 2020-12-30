@@ -67,7 +67,7 @@ class ValoresMercadoActual(models.Model):
 
     class Meta:
         db_table = 'in_valores_mercado_actual'
-        verbose_name_plural = 'Valores de mercado'
+        verbose_name_plural = 'Valores de mercado Recientes'
         verbose_name = 'Valor de mercado'
         ordering = ['-fecha']
 
@@ -82,8 +82,8 @@ class ValoresMercado(models.Model):
 
     class Meta:
         db_table = 'in_valores_mercado'
-        verbose_name_plural = 'Valores de mercado'
-        verbose_name = 'Valor de mercado'
+        verbose_name_plural = 'Valores de mercado Historico'
+        verbose_name = 'Valor de mercado historico'
         ordering = ['-fecha']
 
     def save(self, *args, **kwargs):
