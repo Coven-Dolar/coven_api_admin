@@ -15,16 +15,16 @@ class Commodities(models.Model):
     nombre = models.CharField(max_length=40, null=False, blank=False)
     mercado_internacional = models.BooleanField(default=True)
     mercado_nacional = models.BooleanField(default=True)
-    activo = models.BooleanField(default=True) 
-    
+    activo = models.BooleanField(default=True)
+
     def __str__(self):
         return self.nombre
-    
+
     class Meta:
         db_table = 'in_commodities'
         verbose_name_plural = 'Mercados'
         verbose_name = 'Mercado'
-        
+
 class ValoresMercado(models.Model):
     PAR = (
         ('BS/USD', 'BS/USD'),
@@ -57,7 +57,10 @@ class ValoresMercado(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             try:
-                datos = ValoresMercado.objects.filter(tipo_mercado=self.tipo_mercado, mercado=self.mercado).latest('fecha')
+                datos = ValoresMercado.objects.filter(
+                    tipo_mercado=self.tipo_mercado, mercado=self.mercado,
+                    par=self.par
+                ).latest('fecha')
                 if self.precio < datos.precio:
                     movilidad = decimal.Decimal((self.precio * 100)) / decimal.Decimal(datos.precio)
                     self.movilidad = movilidad - 100
@@ -65,9 +68,9 @@ class ValoresMercado(models.Model):
                     self.movilidad = decimal.Decimal(self.precio) / decimal.Decimal(datos.precio)
             except ObjectDoesNotExist:
                 pass
-        
-        
-            
+
+
+
         '''if self.precio_venta <  datos.precio_venta:
             movilidad_venta = (self.precio_venta * 100) / datos.precio_venta
             self.movilidad_venta  = movilidad_venta - 100
@@ -81,7 +84,7 @@ class ValoresMercado(models.Model):
             self.movilidad_compra  = self.precio_compra / datos.precio_compra'''
 
         super(ValoresMercado, self).save(*args, **kwargs)
-    
+
     class Meta:
         db_table = 'in_valores_mercado'
         verbose_name_plural = 'Valores de mercado'

@@ -8,7 +8,7 @@ import requests
 
 
 class Command(BaseCommand):
-    help = "Obtiene el valor del cacao"
+    help = "Obtiene varios valores desde monitor dolar"
 
     # A commands must define handle()
     def handle(self, *args, **options):
