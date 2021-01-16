@@ -18,9 +18,10 @@ class Command(BaseCommand):
 
         coffe = round(float(span.get_text().strip().replace(',', '')) * 0.00453592, 2)
 
-        ValoresMercado(
-            tipo_mercado='I',
-            precio=coffe,
-            par='USD/QQ',
-            mercado=Commodities.objects.get(abreviatura='C')
-        ).save()
+        if coffe > 0:
+            ValoresMercado(
+                tipo_mercado='I',
+                precio=coffe,
+                par='USD/QQ',
+                mercado=Commodities.objects.get(abreviatura='C')
+            ).save()

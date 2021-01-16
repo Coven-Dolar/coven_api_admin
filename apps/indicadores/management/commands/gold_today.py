@@ -16,9 +16,11 @@ class Command(BaseCommand):
         resp = r.json()
         ORO = resp['GOLD']['rate']
         ORO = round(ORO / 28.3495, 2)
-        ValoresMercado.objects.create(
-            tipo_mercado='N',
-            precio=ORO,
-            par='USD/G',
-            mercado=Commodities.objects.get(abreviatura='ORO')
-        ).save()
+
+        if ORO > 0:
+            ValoresMercado.objects.create(
+                tipo_mercado='N',
+                precio=ORO,
+                par='USD/G',
+                mercado=Commodities.objects.get(abreviatura='ORO')
+            ).save()

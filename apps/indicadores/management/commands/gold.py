@@ -21,12 +21,14 @@ class Command(BaseCommand):
         valor = valor.split('\n')
         ORO = float(valor[14])
 
-        ValoresMercado.objects.create(
-            tipo_mercado='I',
-            precio=ORO,
-            par='USD/G',
-            mercado=Commodities.objects.get(abreviatura='ORO')
-        ).save()
+        if ORO > 0:
+
+            ValoresMercado.objects.create(
+                tipo_mercado='I',
+                precio=ORO,
+                par='USD/G',
+                mercado=Commodities.objects.get(abreviatura='ORO')
+            ).save()
 
         '''valores = ValoresMercado.objects.filter(fecha__gte=date.today(), mercado__mercado_internacional=True)
         mess = ''

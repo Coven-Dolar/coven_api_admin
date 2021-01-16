@@ -17,16 +17,18 @@ class Command(BaseCommand):
         resp = json.loads(r.json())
         ptr = resp['data']['PTR']
 
-        ValoresMercado.objects.create(
-            tipo_mercado='N',
-            precio=ptr['BS'],
-            par='BS/PTR',
-            mercado=Commodities.objects.get(abreviatura='PTR')
-        ).save()
+        if ptr['BS'] > 0:
+            ValoresMercado.objects.create(
+                tipo_mercado='N',
+                precio=ptr['BS'],
+                par='BS/PTR',
+                mercado=Commodities.objects.get(abreviatura='PTR')
+            ).save()
 
-        ValoresMercado.objects.create(
-            tipo_mercado='N',
-            precio=ptr['USD'],
-            par='USD/PTR',
-            mercado=Commodities.objects.get(abreviatura='PTR')
-        ).save()
+        if ptr['USD'] > 0:
+            ValoresMercado.objects.create(
+                tipo_mercado='N',
+                precio=ptr['USD'],
+                par='USD/PTR',
+                mercado=Commodities.objects.get(abreviatura='PTR')
+            ).save()
