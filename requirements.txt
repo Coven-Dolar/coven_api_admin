@@ -11,3 +11,4 @@ django-material-admin
 django-ckeditor
 fcm-django
 beautifulsoup4
+python-decouple
