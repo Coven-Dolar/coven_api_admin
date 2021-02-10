@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+from decouple import config
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -23,8 +24,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '&b^le+))2=$tnywdp#e$3lev%hv0j284o8%1ch*&1dy%jk=u7&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-DEV = False
+DEBUG = config('DEV', default=False, cast=bool)
+DEV = config('DEV', default=False, cast=bool)
 ALLOWED_HOSTS = ['*']
 
 
@@ -151,6 +152,18 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT')
+    }
+}
+
+
 if DEV:
     print('Development Environment')
     SITE_URL = 'http://127.0.0.1:8000/'
@@ -158,32 +171,10 @@ if DEV:
         os.path.join(BASE_DIR, 'static'),
     ]
 
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'coven',
-            'USER': 'postgres',
-            'PASSWORD': 'postgres',
-            'HOST': '127.0.0.1',
-            'PORT': '5432'
-        }
-    }
-
-
-
 else:
     SITE_URL = 'https://coven.jaspesoft.com/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'db_coven',
-            'USER': 'user_admindb',
-            'PASSWORD': 'P@ssw0rd2020c0r0n4',
-            'HOST': '127.0.0.1',
-            'PORT': '5432'
-        }
-    }
+
 
 
 MATERIAL_ADMIN_SITE = {
