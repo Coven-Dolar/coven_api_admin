@@ -1,0 +1,33 @@
+
+stages:
+  - prepare
+  - deploy
+
+before_production:
+  stage: prepare
+  tags:
+    - production
+  only:
+    - master
+  script:
+    - cd /applications/coven_api_admin
+    - echo "$CREDENCIAL_DB_PRODUCCION" > "$(pwd)/.env"
+    - git fetch
+    - git checkout master
+    - git pull origin master
+
+
+after_production:
+  stage: deploy
+  tags:
+    - production
+  only:
+    - master
+  script:
+    - cd /applications/coven_api_admin
+    - pip install -r requirements.txt
+    # DB sync
+    - python manage.py makemigrations blog web indicadores
+    - python manage.py migrate
+    # Restart web server
+    - sudo systemctl restart coven
