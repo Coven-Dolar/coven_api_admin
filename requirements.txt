@@ -3,7 +3,6 @@ djangorestframework
 django-cors-headers
 pillow
 django-froala-editor
-django_filters
 django-filter
 psycopg2-binary
 bs4
