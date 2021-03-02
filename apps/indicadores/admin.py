@@ -1,10 +1,6 @@
 from django.contrib import admin
+from apps.indicadores.models import ValoresMercado, ValoresMercadoActual, Commodities, Leyendas
 
-# Register your models here.
-from apps.indicadores.models import *
-
-
-# admin.site.register(Indicadores)
 
 @admin.register(Leyendas)
 class AdminLeyendas(admin.ModelAdmin):
@@ -21,6 +17,7 @@ class AdminCommodities(admin.ModelAdmin):
 
 @admin.register(ValoresMercado)
 class AdminValoresMercado(admin.ModelAdmin):
+    list_per_page = 20
     icon_name = 'trending_up'
     list_display = ('mercado', 'precio', 'par', 'movilidad', 'fecha', 'tipo_mercado')
     list_filter = ('mercado', 'tipo_mercado', 'par')

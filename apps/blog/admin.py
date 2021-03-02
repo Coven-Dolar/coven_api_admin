@@ -18,6 +18,7 @@ class AdminCategorias(admin.ModelAdmin):
 
 @admin.register(Post)
 class AdminPost(admin.ModelAdmin):
+    list_per_page = 20
     icon_name = 'library_add'
     list_filter = ('usuario','categoria', 'activo')
     fieldsets = [
