@@ -13,6 +13,7 @@ class CategoriasSerializers(ModelSerializer):
 class PostSerializers(ModelSerializer):
     usuario = serializers.SlugRelatedField(read_only=True, slug_field='username')
     categoria = serializers.SlugRelatedField(read_only=True, slug_field='url')
+    nombre_categoria = serializers.SlugRelatedField(read_only=True, slug_field='categoria')
     foto_principal = serializers.SerializerMethodField()
     foto_miniatura = serializers.SerializerMethodField()
 
