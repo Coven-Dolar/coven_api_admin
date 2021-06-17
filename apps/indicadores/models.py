@@ -31,7 +31,7 @@ PAR = (
 
 class Commodities(models.Model):
     abreviatura = models.CharField(max_length=6, primary_key=True, db_index=True, null=False, blank=False)
-    nombre = models.CharField(max_length=40, null=False, blank=False)
+    nombre = models.CharField(max_length=40, null=False, blank=False, db_index=True)
     mercado_internacional = models.BooleanField(default=True)
     mercado_nacional = models.BooleanField(default=True)
     activo = models.BooleanField(default=True)

@@ -29,4 +29,5 @@ urlpatterns = [
     path('api/v1/blog/', include('apps.blog.urls')),
     path('api/v1/indicadores/', include('apps.indicadores.urls')),
     path('api/v1/devices', FCMDeviceAuthorizedViewSet.as_view({'post': 'create'}), name='create_fcm_device'),
+    path('api/v2/indicadores/', include('apps.indicadores.v2.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -69,7 +69,6 @@ class LeyendaMercado(APIView):
 
 
 class DataMarketGraph(APIView):
-    # permission_classes = (AllowAny,)
 
     def get(self, request, typemarket, market):
         data = []
@@ -80,8 +79,32 @@ class DataMarketGraph(APIView):
 
         var = ValoresMercado.objects.filter(fecha__range=(after, now),
                                             tipo_mercado=typemarket, mercado__nombre=market).order_by('fecha')
-        print(var.query)
+
         for item in var:
             data.append({'date': item.fecha.strftime("%m-%d %H:%M"), 'value': item.precio})
+
+        return Response(data)
+
+
+class MarketGraph(APIView):
+
+    def get(self, request, typemarket, market):
+        now = datetime.datetime.now()
+        after = now - datetime.timedelta(days=int(request.GET['days']))
+
+        cursor = connection.cursor()
+        cursor.execute(
+            "SELECT round(avg(in_valores_mercado.precio),2) as precio, TO_CHAR(in_valores_mercado.fecha, 'YYYY-MM-DD HH') as date " \
+            "FROM in_valores_mercado " \
+            "INNER JOIN in_commodities ON (in_valores_mercado.mercado_id = in_commodities.abreviatura) " \
+            "WHERE (TO_CHAR(in_valores_mercado.fecha, 'YYYY-MM-DD') BETWEEN '" + str(
+                after.strftime("%Y-%m-%d")) + "' AND '" + str(now.strftime("%Y-%m-%d")) + "' AND " \
+            "in_commodities.nombre = '" + market + "' AND in_valores_mercado.tipo_mercado = '" + typemarket + "') " \
+            "group by TO_CHAR(in_valores_mercado.fecha, 'YYYY-MM-DD HH') ORDER BY 2 asc")
+
+
+        data = []
+        for item in cursor.fetchall():
+            data.append({'date': item[1] + ':00', 'value': item[0]})
 
         return Response(data)
