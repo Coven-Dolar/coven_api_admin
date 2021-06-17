@@ -24,6 +24,7 @@ after_production:
   only:
     - master
   script:
+    - source /applications/VIRTUAL/bin/activate
     - cd /applications/coven_api_admin
     - pip install -r requirements.txt
     # DB sync
