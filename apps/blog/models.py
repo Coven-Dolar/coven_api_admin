@@ -47,7 +47,13 @@ class Post(models.Model):
     fecha_creacion = models.DateTimeField(default=timezone.now, editable=False, verbose_name='Fecha de creacion')
     descripcion = RichTextUploadingField(null=False, blank=False)
     resumen = models.TextField(max_length=800, null=True, blank=True, verbose_name='Resumen')
-    ultima_lectura = models.DateTimeField(editable=False, verbose_name='Ultima lectura', null=True, blank=True)
+    ultima_lectura = models.DateTimeField(
+        editable=False,
+        verbose_name='Ultima lectura',
+        null=True,
+        blank=True,
+        auto_now=True
+    )
     foto_principal = models.FileField(upload_to='documents/')
     foto_miniatura = models.CharField(max_length=200, null=False, blank=False)
     activo = models.BooleanField(default=True)
