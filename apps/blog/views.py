@@ -54,4 +54,8 @@ class ArticulosDetalle(APIView):
     def get(self, request, url_post):
         datos = Post.objects.get(url=url_post)
         serializer = PostSerializers(datos)
+
+        datos.cantidad_visitas = datos.cantidad_visitas + 1
+        datos.save()
+
         return Response(serializer.data)
