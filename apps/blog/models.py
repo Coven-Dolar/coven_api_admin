@@ -5,6 +5,7 @@ from django.db import models
 from django.template import defaultfilters
 from django.utils import timezone
 
+
 # Create your models here.
 
 class Categorias(models.Model):
@@ -32,6 +33,7 @@ class Categorias(models.Model):
 
     def __str__(self):
         return self.categoria
+
 
 class Post(models.Model):
     ACTIVO = 'A'
@@ -68,4 +70,3 @@ class Post(models.Model):
 
     def __str__(self):
         return self.titulo
-
