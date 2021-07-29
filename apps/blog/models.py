@@ -43,7 +43,7 @@ class Post(models.Model):
         (INACTIVO, 'Inhabilitado'),
     )
     titulo = models.CharField(max_length=120, verbose_name='Titulo Articulo')
-    url = models.CharField(max_length=240, verbose_name='Url')
+    url = models.CharField(max_length=240, verbose_name='Url', db_index=True)
     fecha_creacion = models.DateTimeField(default=timezone.now, editable=False, verbose_name='Fecha de creacion')
     descripcion = RichTextUploadingField(null=False, blank=False)
     resumen = models.TextField(max_length=800, null=True, blank=True, verbose_name='Resumen')
