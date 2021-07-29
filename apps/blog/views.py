@@ -53,9 +53,9 @@ class ArticulosDetalle(APIView):
     @method_decorator(cache_page(60 * 60 * 1))
     def get(self, request, url_post):
         datos = Post.objects.get(url=url_post)
-        serializer = PostSerializers(datos)
-
-        datos.cantidad_visitas = datos.cantidad_visitas + 1
+        datos.cantidad_visitas = int(datos.cantidad_visitas) + 1
         datos.save()
+
+        serializer = PostSerializers(datos)
 
         return Response(serializer.data)
