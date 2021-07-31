@@ -8,7 +8,7 @@ import requests
 
 
 class Command(BaseCommand):
-    help = "Obtiene el valor del Carbon"
+    help = "Obtiene el valor de trigo"
 
     # A commands must define handle()
     def handle(self, *args, **options):
