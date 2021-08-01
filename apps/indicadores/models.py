@@ -26,6 +26,8 @@ PAR = (
     ('USD/BARRIL', 'USD/BARRIL'),
     ('USD/BTC', 'USD/BTC'),
     ('USD/GAL', 'USD/GAL'),
+    ('USD/Bu', 'USD/Bu'),
+    ('USD/FBM', 'USD/FBM'),
 )
 
 
