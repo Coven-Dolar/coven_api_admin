@@ -11,3 +11,4 @@ django-ckeditor
 fcm-django
 beautifulsoup4
 python-decouple
+django_celery_beat
