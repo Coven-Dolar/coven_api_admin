@@ -16,3 +16,11 @@ class Command(BaseCommand):
         gasolina = span.get_text().replace(',', '.')
 
         print(gasolina)
+
+        if gasolina > 0:
+            ValoresMercado(
+                tipo_mercado='I',
+                precio=gasolina,
+                par='USD/GAL',
+                mercado=Commodities.objects.get(abreviatura='GASI')
+            ).save()
