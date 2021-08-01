@@ -1,12 +1,10 @@
-django~=3.1.12
+django
 djangorestframework
 django-cors-headers
 pillow
-django-froala-editor
 django-filter
 psycopg2-binary
 bs4
-django-material-admin
 django-ckeditor
 fcm-django
 beautifulsoup4
@@ -15,3 +13,4 @@ celery
 django_celery_beat
 redis
 drf-api-logger
+django-jazzmin
