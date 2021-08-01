@@ -11,4 +11,6 @@ django-ckeditor
 fcm-django
 beautifulsoup4
 python-decouple
+celery
 django_celery_beat
+redis
