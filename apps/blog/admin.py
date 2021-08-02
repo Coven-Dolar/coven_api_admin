@@ -24,7 +24,8 @@ class AdminPost(admin.ModelAdmin):
     list_filter = ('usuario', 'categoria', 'activo')
     fieldsets = [
         ('Datos generales', {'fields': [
-            ('titulo', 'foto_principal',),
+            ('titulo',),
+            ('foto_principal',),
             ('resumen',)
         ]}),
         ('Detalles', {'fields': [
