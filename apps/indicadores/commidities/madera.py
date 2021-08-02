@@ -11,8 +11,8 @@ def madera():
 
     if lumber > 0:
         ValoresMercado.objects.create(
-            tipo_mercado='N',
+            tipo_mercado='I',
             precio=lumber,
             par='USD/FBM',
-            mercado=Commodities.objects.get(abreviatura='ORO')
+            mercado=Commodities.objects.get(abreviatura='MD')
         ).save()
