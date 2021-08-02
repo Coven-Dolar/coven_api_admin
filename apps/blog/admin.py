@@ -23,10 +23,14 @@ class AdminPost(admin.ModelAdmin):
     icon_name = 'library_add'
     list_filter = ('usuario', 'categoria', 'activo')
     fieldsets = [
-        (None, {'fields': [('titulo', 'foto_principal')]}),
-        (None, {'fields': [('categoria', 'activo')]}),
-        (None, {'fields': ['resumen']}),
-        (None, {'fields': ['descripcion']}),
+        ('Datos generales', {'fields': [
+            ('titulo', 'foto_principal',),
+            ('resumen',)
+        ]}),
+        ('Detalles', {'fields': [
+            ('categoria', 'activo',),
+            ('descripcion',)
+        ]}),
     ]
     list_display = ('titulo', 'url', 'fecha_creacion', 'cantidad_visitas', 'ultima_lectura',)
 
