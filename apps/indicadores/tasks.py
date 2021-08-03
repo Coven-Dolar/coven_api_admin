@@ -4,6 +4,7 @@ from apps.indicadores.commidities.btc import btc
 from apps.indicadores.commidities.cacao import cacao
 from apps.indicadores.commidities.cafe import cafe
 from apps.indicadores.commidities.carbon import carbon
+from apps.indicadores.commidities.cobre import cobre
 from apps.indicadores.commidities.gasolina import gasolina
 from apps.indicadores.commidities.madera import madera
 from apps.indicadores.commidities.maiz import maiz
@@ -78,3 +79,8 @@ def hanlde_ptr():
 @shared_task(name="trigo")
 def hanlde_trigor():
     trigo()
+
+
+@shared_task(name="cobre")
+def hanlde_cobre():
+    cobre()

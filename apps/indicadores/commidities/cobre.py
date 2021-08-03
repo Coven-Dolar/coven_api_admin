@@ -14,5 +14,5 @@ def cobre():
             tipo_mercado='I',
             precio=copper,
             par='USD/T',
-            mercado=Commodities.objects.get(abreviatura='CABRE')
+            mercado=Commodities.objects.get(abreviatura='COBRE')
         ).save()
