@@ -10,9 +10,16 @@ def madera():
     lumber = round(float(span.get_text().replace(',', '.')), 2)  # USD per  board feet (pies de tabla)
 
     if lumber > 0:
-        ValoresMercado.objects.create(
+        ValoresMercado(
             tipo_mercado='I',
             precio=lumber,
+            par='USD/FBM',
+            mercado=Commodities.objects.get(abreviatura='MD')
+        ).save()
+
+        ValoresMercado(
+            tipo_mercado='N',
+            precio=round(lumber * 0.00453592, 2),
             par='USD/FBM',
             mercado=Commodities.objects.get(abreviatura='MD')
         ).save()

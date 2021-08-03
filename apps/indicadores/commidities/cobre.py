@@ -16,3 +16,10 @@ def cobre():
             par='USD/T',
             mercado=Commodities.objects.get(abreviatura='COBRE')
         ).save()
+
+        ValoresMercado(
+            tipo_mercado='N',
+            precio=round(copper * 0.00453592, 2),
+            par='USD/T',
+            mercado=Commodities.objects.get(abreviatura='COBRE')
+        ).save()

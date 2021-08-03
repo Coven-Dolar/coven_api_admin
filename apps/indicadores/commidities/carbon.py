@@ -18,3 +18,11 @@ def carbon():
             par='USD/T',
             mercado=Commodities.objects.get(abreviatura='CARBON')
         ).save()
+
+
+        ValoresMercado(
+            tipo_mercado='N',
+            precio=round(carbon * 0.00453592, 2),
+            par='USD/T',
+            mercado=Commodities.objects.get(abreviatura='CARBON')
+        ).save()

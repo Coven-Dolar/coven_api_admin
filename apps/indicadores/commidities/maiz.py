@@ -18,3 +18,10 @@ def maiz():
             par='USD/Bu',
             mercado=Commodities.objects.get(abreviatura='MAIZ')
         ).save()
+
+        ValoresMercado(
+            tipo_mercado='N',
+            precio=round(corn * 0.00453592, 2),
+            par='USD/Bu',
+            mercado=Commodities.objects.get(abreviatura='MAIZ')
+        ).save()
