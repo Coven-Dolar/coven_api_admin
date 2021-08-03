@@ -16,7 +16,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -28,14 +27,13 @@ DEBUG = config('DEV', default=False, cast=bool)
 DEV = config('DEV', default=False, cast=bool)
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
     'jazzmin',
     'django.contrib.admin',
-    #'material',
-    #'material.admin',
+    # 'material',
+    # 'material.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -87,7 +85,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'coven.wsgi.application'
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -106,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -120,7 +116,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-#CONFIGURACION DRF
+# CONFIGURACION DRF
 CORS_ORIGIN_ALLOW_ALL = True  # Permite la api se usada desde cualquier origen
 CORS_ALLOW_HEADERS = (
     'accept',
@@ -133,7 +129,6 @@ CORS_ALLOW_HEADERS = (
     'x-csrftoken',
     'x-requested-with',
 )
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -166,7 +161,6 @@ DATABASES = {
     }
 }
 
-
 if DEV:
     print('Development Environment')
     SITE_URL = 'http://127.0.0.1:8000/'
@@ -178,12 +172,10 @@ else:
     SITE_URL = 'https://coven.jaspesoft.com/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-
-
 JAZZMIN_SETTINGS = {
-    'site_header':  'Coven Admin',  # Admin site header
-    'site_title':  'CoVen',  # Admin site title
-    'site_logo':  'imagen/logo.svg',  # Admin site logo on login page (path to static should be specified)
+    'site_header': 'Coven Admin',  # Admin site header
+    'site_title': 'CoVen',  # Admin site title
+    'site_logo': 'imagen/logo.svg',  # Admin site logo on login page (path to static should be specified)
     "welcome_sign": "Bienvenido al Administrador de Coven",
 
     # Copyright on the footer
@@ -201,7 +193,8 @@ CKEDITOR_CONFIGS = {
         'height': 300,
         'toolbar_Custom': [
             ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter',
+             'JustifyRight', 'JustifyBlock'],
             ['Link', 'Unlink'],
             {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
@@ -217,18 +210,35 @@ CKEDITOR_CONFIGS = {
 }
 
 FCM_DJANGO_SETTINGS = {
-        "APP_VERBOSE_NAME": "Push Notifications",
-        "FCM_SERVER_KEY": config('FCM_APIKEY'),
-        "ONE_DEVICE_PER_USER": False,
-        "DELETE_INACTIVE_DEVICES": True,
+    "APP_VERBOSE_NAME": "Push Notifications",
+    "FCM_SERVER_KEY": config('FCM_APIKEY'),
+    "ONE_DEVICE_PER_USER": False,
+    "DELETE_INACTIVE_DEVICES": True,
 }
-
 
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
 
-
 JAZZMIN_UI_TWEAKS = {
     "theme": "cosmo",
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/applications/coven.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
 }
