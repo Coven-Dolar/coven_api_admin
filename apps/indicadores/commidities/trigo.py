@@ -15,7 +15,7 @@ def trigo():
         span = soup.find(class_="price-section__current-value")
         # wheat = round(float(span.get_text().replace(',', '.')) / 1000, 2)
         wheat = round(float(span.get_text().replace(',', '.')), 2)
-
+        logger.debug('Precio del trigo ' + str(wheat))
         if wheat > 0:
             ValoresMercado(
                 tipo_mercado='I',
