@@ -7,9 +7,7 @@ def gasolina():
     r = requests.get('https://www.indexmundi.com/es/precios-de-mercado/?mercancia=gasolina')
     soup = BeautifulSoup(r.content, 'html.parser')
     span = soup.find(class_="dailyPrice")
-    gasolina = span.get_text().replace(',', '.')
-
-    print(gasolina)
+    gasolina = round(float(span.get_text().replace(',', '.')), 2)
 
     if gasolina > 0:
         ValoresMercado(
