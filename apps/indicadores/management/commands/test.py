@@ -14,5 +14,5 @@ def trigo():
             tipo_mercado='I',
             precio=wheat,
             par='USD/Bu',
-            mercado=Commodities.objects.get(abreviatura='MAIZ')
+            mercado=Commodities.objects.get(abreviatura='TRIGO')
         ).save()
