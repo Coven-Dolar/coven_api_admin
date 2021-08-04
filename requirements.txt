@@ -14,3 +14,4 @@ django_celery_beat
 redis
 drf-api-logger
 django-jazzmin
+firebase-admin
