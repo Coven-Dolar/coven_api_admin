@@ -27,3 +27,4 @@ Thumbs.db
 /contenedores/
 migrations
 .gitlab-ci.yml
+firebase.json

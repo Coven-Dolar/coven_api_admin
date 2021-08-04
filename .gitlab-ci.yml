@@ -12,6 +12,7 @@ before_production:
   script:
     - cd /applications/coven_api_admin
     - echo "$CREDENCIAL_DB_PRODUCCION" > "$(pwd)/.env"
+    - echo "$FIREBASE_CREDENTIALS" > "$(pwd)/firebase.json"
     - git fetch
     - git checkout master
     - git pull origin master

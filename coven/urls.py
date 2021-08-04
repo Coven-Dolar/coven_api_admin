@@ -20,6 +20,7 @@ from django.conf import settings
 from rest_framework.authtoken.views import obtain_auth_token
 from fcm_django.api.rest_framework import FCMDeviceAuthorizedViewSet
 
+from apps.web.views import FCMDeviceAPI
 
 urlpatterns = [
     path('', admin.site.urls),
@@ -28,6 +29,6 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('api/v1/blog/', include('apps.blog.urls')),
     path('api/v1/indicadores/', include('apps.indicadores.urls')),
-    path('api/v1/devices', FCMDeviceAuthorizedViewSet.as_view({'post': 'create'}), name='create_fcm_device'),
+    path('api/v1/devices', FCMDeviceAPI.as_view({'post': 'create'}), name='create_fcm_device'),
     path('api/v2/indicadores/', include('apps.indicadores.v2.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

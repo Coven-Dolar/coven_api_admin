@@ -60,7 +60,18 @@ class AdminPost(admin.ModelAdmin):
             categoria.save()
 
             from fcm_django.models import FCMDevice
-            device = FCMDevice.objects.all()
-            device.send_message(title=request.POST['titulo'],
-                                body=request.POST['resumen'],
-                                )
+            from firebase_admin.messaging import Message, Notification
+
+            # device = FCMDevice.objects.all()
+            # device.send_message(title=request.POST['titulo'],
+            #                     body=request.POST['resumen'],
+            #                     )
+
+            FCMDevice.objects.send_message(Message(
+                notification=Notification(
+                    title=request.POST['titulo'],
+                    body=request.POST['resumen'],
+                    image="http://coven.jaspesoft.com/static/imagen/icon.png"
+                ),
+                topic="COVEN-NEWS",
+            ))

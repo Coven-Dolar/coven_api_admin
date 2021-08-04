@@ -204,6 +204,10 @@ else:
         },
     }
 
+JAZZMIN_UI_TWEAKS = {
+    "theme": "cosmo",
+}
+
 JAZZMIN_SETTINGS = {
     'site_header': 'Coven Admin',  # Admin site header
     'site_title': 'CoVen',  # Admin site title
@@ -241,6 +245,9 @@ CKEDITOR_CONFIGS = {
     }
 }
 
+import firebase_admin
+from firebase_admin import credentials
+
 FCM_DJANGO_SETTINGS = {
     "APP_VERBOSE_NAME": "Push Notifications",
     "FCM_SERVER_KEY": config('FCM_APIKEY'),
@@ -248,10 +255,9 @@ FCM_DJANGO_SETTINGS = {
     "DELETE_INACTIVE_DEVICES": True,
 }
 
+cred = credentials.Certificate(os.path.join(BASE_DIR, 'firebase.json'))
+firebase_admin.initialize_app(cred)
+
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
-
-JAZZMIN_UI_TWEAKS = {
-    "theme": "cosmo",
-}
