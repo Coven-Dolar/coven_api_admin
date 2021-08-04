@@ -67,11 +67,12 @@ class AdminPost(admin.ModelAdmin):
             #                     body=request.POST['resumen'],
             #                     )
 
-            FCMDevice.objects.send_message(Message(
-                notification=Notification(
-                    title=request.POST['titulo'],
-                    body=request.POST['resumen'],
-                    image="http://coven.jaspesoft.com/static/imagen/icon.png"
-                ),
-                topic="COVEN-NEWS",
-            ))
+            FCMDevice.objects.send_message(
+                Message(
+                    notification=Notification(
+                        title=request.POST['titulo'],
+                        body=request.POST['resumen'],
+                        image="http://coven.jaspesoft.com/static/imagen/icon.png"
+                    ),
+                )
+            )
