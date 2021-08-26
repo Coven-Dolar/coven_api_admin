@@ -8,7 +8,7 @@ from apps.indicadores.models import ValoresMercado, Commodities
 def btc():
     request = requests.get('https://coinmarketcap.com/currencies/bitcoin/')
     soup = BeautifulSoup(request.content, 'html.parser')
-    span = soup.find(class_="priceValue___11gHJ")
+    span = soup.find(class_="sc-16r8icm-0 kjciSH priceTitle").find(class_="priceValue")
     btc = span.get_text().strip().replace(',', '').replace('$', '')
 
     btc_usd = decimal.Decimal(btc)
