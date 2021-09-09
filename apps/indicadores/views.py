@@ -55,15 +55,16 @@ class MarketGraph(APIView):
         now = datetime.datetime.now()
         after = now - datetime.timedelta(days=int(request.GET['days']))
 
+        sql = "SELECT round(avg(in_valores_mercado.precio),2) as precio, TO_CHAR(in_valores_mercado.fecha, 'YYYY-MM-DD HH') as date " \
+              "FROM in_valores_mercado " \
+              "INNER JOIN in_commodities ON (in_valores_mercado.mercado_id = in_commodities.abreviatura) " \
+              "WHERE (TO_CHAR(in_valores_mercado.fecha, 'YYYY-MM-DD') BETWEEN '"+str(after.strftime("%Y-%m-%d"))+"' AND " \
+                     "'"+str(now.strftime("%Y-%m-%d"))+"' AND in_commodities.nombre = '" + market + "' AND " \
+                     "in_valores_mercado.tipo_mercado = '" + typemarket + "') " \
+              "GROUP BY TO_CHAR(in_valores_mercado.fecha, 'YYYY-MM-DD HH') ORDER BY 2 asc"
+
         cursor = connection.cursor()
-        cursor.execute(
-            "SELECT round(avg(in_valores_mercado.precio),2) as precio, TO_CHAR(in_valores_mercado.fecha, 'YYYY-MM-DD HH') as date " \
-            "FROM in_valores_mercado " \
-            "INNER JOIN in_commodities ON (in_valores_mercado.mercado_id = in_commodities.abreviatura) " \
-            "WHERE (TO_CHAR(in_valores_mercado.fecha, 'YYYY-MM-DD') BETWEEN '" + str(
-                after.strftime("%Y-%m-%d")) + "' AND '" + str(now.strftime("%Y-%m-%d")) + "' AND " \
-                                                                                          "in_commodities.nombre = '" + market + "' AND in_valores_mercado.tipo_mercado = '" + typemarket + "') " \
-                                                                                                                                                                                            "group by TO_CHAR(in_valores_mercado.fecha, 'YYYY-MM-DD HH') ORDER BY 2 asc")
+        cursor.execute(sql)
 
         data = []
         for item in cursor.fetchall():
