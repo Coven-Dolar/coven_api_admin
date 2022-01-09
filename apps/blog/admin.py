@@ -1,3 +1,6 @@
+import requests
+import json
+from django.conf import settings
 from django.contrib import admin
 from django.utils.datastructures import MultiValueDictKeyError
 from .models import Categorias, Post
@@ -44,6 +47,7 @@ class AdminPost(admin.ModelAdmin):
             print(obj.foto_miniatura)
         except MultiValueDictKeyError:
             pass
+
         obj.titulo = request.POST['titulo']
         obj.resumen = request.POST['resumen']
         obj.descripcion = request.POST['descripcion']
@@ -58,21 +62,31 @@ class AdminPost(admin.ModelAdmin):
             categoria = Categorias.objects.get(id=request.POST['categoria'])
             categoria.total_articulos = cantidad
             categoria.save()
+            
 
-            from fcm_django.models import FCMDevice
-            from firebase_admin.messaging import Message, Notification
+            url = "https://onesignal.com/api/v1/notifications"
 
-            # device = FCMDevice.objects.all()
-            # device.send_message(title=request.POST['titulo'],
-            #                     body=request.POST['resumen'],
-            #                     )
+            payload = json.dumps({
+                "app_id": settings.ONESIGNAL_APP_ID,
+                "included_segments": [
+                    "Subscribed Users"
+                ],
+                "data": {
+                    "url": request.POST['url']
+                },
+                "headings": {
+                    "en": request.POST['titulo']
+                },
+                "contents": {
+                    "en": request.POST['resumen']
+                }
+            })
 
-            FCMDevice.objects.send_message(
-                Message(
-                    notification=Notification(
-                        title=request.POST['titulo'],
-                        body=request.POST['resumen'],
-                        image="http://coven.jaspesoft.com/static/imagen/icon.png"
-                    ),
-                )
-            )
+            headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + settings.ONESIGNAL_API_KEY
+            }
+
+            response = requests.request("POST", url, headers=headers, data=payload)
+
+            print(response.text)

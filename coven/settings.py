@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'apps.indicadores',
     'apps.blog',
     'apps.web',
-    'fcm_django',
     'django_celery_beat',
     'drf_api_logger',
 ]
@@ -245,19 +244,12 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-import firebase_admin
-from firebase_admin import credentials
 
-FCM_DJANGO_SETTINGS = {
-    "APP_VERBOSE_NAME": "Push Notifications",
-    "FCM_SERVER_KEY": config('FCM_APIKEY'),
-    "ONE_DEVICE_PER_USER": False,
-    "DELETE_INACTIVE_DEVICES": True,
-}
-
-cred = credentials.Certificate(os.path.join(BASE_DIR, 'firebase.json'))
-firebase_admin.initialize_app(cred)
 
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+
+
+ONE_SIGNAL_APP=config('ONE_SIGNAL_APP')
+ONE_SIGNAL_AUTH=config('ONE_SIGNAL_AUTH')

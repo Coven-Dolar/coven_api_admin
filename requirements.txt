@@ -6,7 +6,6 @@ django-filter
 psycopg2-binary
 bs4
 django-ckeditor
-fcm-django
 beautifulsoup4
 python-decouple
 celery
