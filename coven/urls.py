@@ -19,8 +19,6 @@ from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework.authtoken.views import obtain_auth_token
 
-from apps.web.views import FCMDeviceAPI
-
 urlpatterns = [
     path('', admin.site.urls),
     path('web/', include('apps.web.urls')),
