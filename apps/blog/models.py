@@ -1,3 +1,6 @@
+import requests
+import json
+from django.conf import settings
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User
@@ -64,6 +67,34 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             self.url = defaultfilters.slugify(self.titulo)
+
+            url = "https://onesignal.com/api/v1/notifications"
+
+            payload = json.dumps({
+                "app_id": settings.ONE_SIGNAL_APP,
+                "included_segments": [
+                    "Subscribed Users"
+                ],
+                "data": {
+                    "url": self.url
+                },
+                "headings": {
+                    "en": self.titulo
+                },
+                "contents": {
+                    "en": self.resumen
+                }
+            })
+
+            headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + settings.ONE_SIGNAL_AUTH
+            }
+
+            response = requests.request("POST", url, headers=headers, data=payload)
+
+            print(response.text)
+
             super(Post, self).save(*args, **kwargs)
         else:
             super(Post, self).save(*args, **kwargs)

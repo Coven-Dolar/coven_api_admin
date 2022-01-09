@@ -1,6 +1,3 @@
-import requests
-import json
-from django.conf import settings
 from django.contrib import admin
 from django.utils.datastructures import MultiValueDictKeyError
 from .models import Categorias, Post
@@ -63,30 +60,3 @@ class AdminPost(admin.ModelAdmin):
             categoria.total_articulos = cantidad
             categoria.save()
             
-
-            url = "https://onesignal.com/api/v1/notifications"
-
-            payload = json.dumps({
-                "app_id": settings.ONE_SIGNAL_APP,
-                "included_segments": [
-                    "Subscribed Users"
-                ],
-                "data": {
-                    "url": request.POST['url']
-                },
-                "headings": {
-                    "en": request.POST['titulo']
-                },
-                "contents": {
-                    "en": request.POST['resumen']
-                }
-            })
-
-            headers = {
-                'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + settings.ONE_SIGNAL_AUTH
-            }
-
-            response = requests.request("POST", url, headers=headers, data=payload)
-
-            print(response.text)
