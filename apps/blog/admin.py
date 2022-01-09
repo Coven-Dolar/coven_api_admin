@@ -67,7 +67,7 @@ class AdminPost(admin.ModelAdmin):
             url = "https://onesignal.com/api/v1/notifications"
 
             payload = json.dumps({
-                "app_id": settings.ONESIGNAL_APP_ID,
+                "app_id": settings.ONE_SIGNAL_APP,
                 "included_segments": [
                     "Subscribed Users"
                 ],
@@ -84,7 +84,7 @@ class AdminPost(admin.ModelAdmin):
 
             headers = {
                 'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + settings.ONESIGNAL_API_KEY
+                'Authorization': 'Basic ' + settings.ONE_SIGNAL_AUTH
             }
 
             response = requests.request("POST", url, headers=headers, data=payload)
