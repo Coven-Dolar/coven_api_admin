@@ -28,3 +28,6 @@ Thumbs.db
 migrations
 .gitlab-ci.yml
 firebase.json
+.env
+DS_Store
+*.log
