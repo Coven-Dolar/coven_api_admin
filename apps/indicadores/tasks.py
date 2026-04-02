@@ -51,9 +51,9 @@ def hanlde_maiz():
     maiz()
 
 
-@shared_task(name="monitor_dolar")
-def hanlde_monitor_dolar():
-    monitor_dolar()
+# @shared_task(name="monitor_dolar")
+# def hanlde_monitor_dolar():
+#     monitor_dolar()
 
 
 @shared_task(name="oro")
@@ -61,9 +61,9 @@ def hanlde_oro():
     oro()
 
 
-@shared_task(name="oro_nacional")
-def hanlde_oro_nacional():
-    oro_nacional()
+# @shared_task(name="oro_nacional")
+# def hanlde_oro_nacional():
+#     oro_nacional()
 
 
 @shared_task(name="petroleo")
@@ -71,9 +71,9 @@ def hanlde_petroleo():
     petroleo()
 
 
-@shared_task(name="ptr")
-def hanlde_ptr():
-    ptr()
+# @shared_task(name="ptr")
+# def hanlde_ptr():
+#     ptr()
 
 
 @shared_task(name="trigo")
