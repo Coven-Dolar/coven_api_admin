@@ -1,33 +1,29 @@
 from bs4 import BeautifulSoup
 from apps.indicadores.models import ValoresMercado, Commodities
 import requests
+import re
 
 
 def oro():
-    r = requests.get('https://www.kitco.com/gold-price-today-usa/')
-    soup = BeautifulSoup(r.content, 'html.parser')
-    span = soup.find(class_='table-price--body-table--overview-detail')
-    valor = span.get_text()
-    valor = valor.split('\n')
-    ORO = float(valor[14])
-
-    if ORO > 0:
-        ValoresMercado.objects.create(
-            tipo_mercado='I',
-            precio=ORO,
-            par='USD/G',
-            mercado=Commodities.objects.get(abreviatura='ORO')
-        ).save()
-
-    r = requests.get('https://s3.amazonaws.com/dolartoday/data.json')
-    resp = r.json()
-    ORO = resp['GOLD']['rate']
-    ORO = round(ORO / 28.3495, 2)
-
-    if ORO > 0:
-        ValoresMercado.objects.create(
-            tipo_mercado='N',
-            precio=ORO,
-            par='USD/G',
-            mercado=Commodities.objects.get(abreviatura='ORO')
-        ).save()
+    # Intento 1: Investing.com
+    url = 'https://www.investing.com/currencies/xau-usd'
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    }
+    try:
+        r = requests.get(url, headers=headers, timeout=20)
+        if r.status_code == 200:
+            soup = BeautifulSoup(r.content, 'html.parser')
+            span = soup.find(attrs={"data-test": "instrument-price-last"})
+            if span:
+                valor_text = span.get_text().strip().replace(',', '')
+                oro_val = float(valor_text)
+                if oro_val > 0:
+                    ValoresMercado.objects.create(
+                        tipo_mercado='I',
+                        precio=oro_val,
+                        par='USD/G',
+                        mercado=Commodities.objects.get(abreviatura='ORO')
+                    ).save()
+    except Exception as e:
+        print(f"Error scraping Gold from Investing: {e}")
