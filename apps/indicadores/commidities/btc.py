@@ -8,7 +8,11 @@ from apps.indicadores.models import ValoresMercado, Commodities
 def btc():
     request = requests.get('https://coinmarketcap.com/currencies/bitcoin/')
     soup = BeautifulSoup(request.content, 'html.parser')
-    span = soup.find(class_="sc-16r8icm-0 kjciSH priceTitle").find(class_="priceValue")
+    span = soup.find(attrs={"data-test": "text-cdp-price-display"})
+    if not span:
+        print('No se pudo obtener el valor del BTC')
+        return
+    
     btc = span.get_text().strip().replace(',', '').replace('$', '')
 
     btc_usd = decimal.Decimal(btc)
@@ -22,6 +26,9 @@ def btc():
 
     # buscar el valor del dolar
     bs_usd = ValoresMercado.objects.filter(mercado__abreviatura='USD', par='BS/USD')[:1]
+
+    if not bs_usd:
+        return
 
     btc_bs = decimal.Decimal(float(btc) * float(bs_usd[0].precio))
     if btc_bs > 0:
