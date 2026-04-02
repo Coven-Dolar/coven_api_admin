@@ -20,11 +20,11 @@ from django.conf import settings
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
-    path('', admin.site.urls),
     path('web/', include('apps.web.urls')),
     path('api/auth/', obtain_auth_token),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('api/v1/blog/', include('apps.blog.urls')),
     path('api/v1/indicadores/', include('apps.indicadores.urls')),
     path('api/v2/indicadores/', include('apps.indicadores.v2.urls')),
+    path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
