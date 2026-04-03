@@ -1,3 +1,4 @@
+from apps.indicadores.commidities import dolar_euro_ve, oro_nacional
 from celery import shared_task
 
 from apps.indicadores.commidities.btc import btc
@@ -8,11 +9,8 @@ from apps.indicadores.commidities.cobre import cobre
 from apps.indicadores.commidities.gasolina import gasolina
 from apps.indicadores.commidities.madera import madera
 from apps.indicadores.commidities.maiz import maiz
-from apps.indicadores.commidities.monitor_dolar import monitor_dolar
 from apps.indicadores.commidities.oro import oro
-from apps.indicadores.commidities.oro_nacional import oro_nacional
 from apps.indicadores.commidities.petroleo import petroleo
-from apps.indicadores.commidities.ptr import ptr
 from apps.indicadores.commidities.trigo import trigo
 
 
@@ -51,9 +49,9 @@ def hanlde_maiz():
     maiz()
 
 
-# @shared_task(name="monitor_dolar")
-# def hanlde_monitor_dolar():
-#     monitor_dolar()
+@shared_task(name="dolar_euro_ve")
+def hanlde_dolar_euro_ve():
+    dolar_euro_ve()
 
 
 @shared_task(name="oro")
@@ -61,9 +59,9 @@ def hanlde_oro():
     oro()
 
 
-# @shared_task(name="oro_nacional")
-# def hanlde_oro_nacional():
-#     oro_nacional()
+@shared_task(name="oro_nacional")
+def hanlde_oro_nacional():
+    oro_nacional()
 
 
 @shared_task(name="petroleo")
